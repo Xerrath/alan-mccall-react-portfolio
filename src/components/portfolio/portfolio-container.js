@@ -10,11 +10,14 @@ export default class PortfolioContainer extends Component {
       isLoading: false,
 
       data: [
-        {title: "Alan", category: 'Awesome'},
-        {title: "Austin", category: 'Cool'},
-        {title: "Jordan", category: 'Knowledgeable'},
-        {title: "Trenton", category: 'Teacher'},
-        {title: "Terry", category: 'Leaver'}
+        {title: "HTML5", category: 'Front End', url: "https://html.spec.whatwg.org/", slug: 'HTML5'},
+        {title: "CSS", category: 'Front End', url: "https://www.w3.org/Style/CSS/", slug: 'CSS'},
+        {title: "SCSS/SASS", category: 'Front End', url: "https://sass-lang.com/", slug: 'SCSS-SASS'},
+        {title: "Python", category: 'Mid Level', url: "https://www.python.org/", slug: 'Python'},
+        {title: "JavaScript", category: 'Mid Level', url: "https://www.javascript.com/", slug: 'JavaScript'},
+        {title: "Mongo db", category: "Back End", url: "https://www.mongodb.com/", slug: 'Mongo db'},
+        {title: "ReactJS", Category: "Full Stack", url: "https://reactjs.org/", slug: 'ReactJS'},
+        {title: "UML", Category: "Diagrams", url: "https://www.uml.org/", slug: 'UML'}
       ]
     }
 
@@ -30,10 +33,9 @@ export default class PortfolioContainer extends Component {
   }
 
   portfolioItems() {
-    // const data = ["Alan", "Austin", "Jordan", "Trenton", "Terry"];
 
     return this.state.data.map(item => {
-      return <PortfolioItem title={item.title} url={"google.com"}/>;
+      return <PortfolioItem title={item.title} url={item.url} slug={item.slug}/>;
     });
   }
 
@@ -48,11 +50,11 @@ if (this.state.isLoading) {
         <h2>{this.state.pageTitle}</h2>
         <h2>Portfolio items go here updated...</h2>
 
-        <button onClick={() => this.handleFilter ("Awesome")}>Awesome</button>
-        <button onClick={() => this.handleFilter ("Cool")}>Cool</button>
-        <button onClick={() => this.handleFilter ("Knowledgeable")}>Knowledgeable</button>
-        <button onClick={() => this.handleFilter ("Teacher")}>Teacher</button>
-        <button onClick={() => this.handleFilter ("Leaver")}>Leaver</button>
+        <button onClick={() => this.handleFilter ("Front End")}>Front End</button>
+        <button onClick={() => this.handleFilter ("Mid Level")}>Mid Level</button>
+        <button onClick={() => this.handleFilter ("Back End")}>Back End</button>
+        <button onClick={() => this.handleFilter ("Diagrams")}>Diagrams</button>
+        <button onClick={() => this.handleFilter ("Full Stack")}>Full Stack</button>
 
         {this.portfolioItems()}
 
