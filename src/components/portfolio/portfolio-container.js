@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 
 import PortfolioItem from './portfolio-item';
 
@@ -6,19 +7,10 @@ export default class PortfolioContainer extends Component {
   constructor() {
     super()
     this.state ={
-      pageTitle: "Welcome to my Portfolio",
+      pageTitle: "Portfolio Projects",
       isLoading: false,
 
-      data: [
-        {title: "HTML5", category: 'Front End', url: "https://html.spec.whatwg.org/", slug: 'HTML5'},
-        {title: "CSS", category: 'Front End', url: "https://www.w3.org/Style/CSS/", slug: 'CSS'},
-        {title: "SCSS/SASS", category: 'Front End', url: "https://sass-lang.com/", slug: 'SCSS-SASS'},
-        {title: "Python", category: 'Mid Level', url: "https://www.python.org/", slug: 'Python'},
-        {title: "JavaScript", category: 'Mid Level', url: "https://www.javascript.com/", slug: 'JavaScript'},
-        {title: "Mongo db", category: "Back End", url: "https://www.mongodb.com/", slug: 'Mongo db'},
-        {title: "ReactJS", Category: "Full Stack", url: "https://reactjs.org/", slug: 'ReactJS'},
-        {title: "UML", Category: "Diagrams", url: "https://www.uml.org/", slug: 'UML'}
-      ]
+      data: []
     }
 
     this.handleFilter = this.handleFilter.bind(this);
@@ -32,35 +24,61 @@ export default class PortfolioContainer extends Component {
     });
   }
 
-  portfolioItems() {
+  getPortfolioItems () {
+    axios
+      .get('https://alanmccall.devcamp.space/portfolio/portfolio_items')
+      .then(response => {
+        this.setState({
+          data: response.data.portfolio_items
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
+  portfolioItems() {
     return this.state.data.map(item => {
-      return <PortfolioItem title={item.title} url={item.url} slug={item.slug}/>;
+      return <PortfolioItem key={item.id} item={item} />;
     });
   }
 
+  componentDidMount() {
+    this.getPortfolioItems();
+  }
 
   render() {
-if (this.state.isLoading) {
-  return <div>Loading...</div>;
-}
+    if (this.state.isLoading) {
+
+      return <div>Loading...</div>;
+    }
 
     return (
       <div>
         <h2>{this.state.pageTitle}</h2>
-        <h2>Portfolio items go here updated...</h2>
 
-        <button onClick={() => this.handleFilter ("Front End")}>Front End</button>
-        <button onClick={() => this.handleFilter ("Mid Level")}>Mid Level</button>
-        <button onClick={() => this.handleFilter ("Back End")}>Back End</button>
-        <button onClick={() => this.handleFilter ("Diagrams")}>Diagrams</button>
-        <button onClick={() => this.handleFilter ("Full Stack")}>Full Stack</button>
+        <button onClick={() => this.handleFilter ("Class")}>Class Projects</button>
+        <button onClick={() => this.handleFilter ("Fitness")}>Fitness</button>
+        <button onClick={() => this.handleFilter ("Gaming")}>Gaming</button>
 
         {this.portfolioItems()}
-
         
-
       </div>
     );
   }
 }
+
+// data: [
+//   {title: "HTML5", category: 'Front End', url: "https://html.spec.whatwg.org/", slug: 'HTML5'},
+//   {title: "CSS", category: 'Front End', url: "https://www.w3.org/Style/CSS/", slug: 'CSS'},
+//   {title: "SCSS/SASS", category: 'Front End', url: "https://sass-lang.com/", slug: 'SCSS-SASS'},
+//   {title: "Python", category: 'Mid Level', url: "https://www.python.org/", slug: 'Python'},
+//   {title: "JavaScript", category: 'Mid Level', url: "https://www.javascript.com/", slug: 'JavaScript'},
+//   {title: "Mongo db", category: "Back End", url: "https://www.mongodb.com/", slug: 'Mongo db'},
+//   {title: "ReactJS", category: "Full Stack", url: "https://reactjs.org/", slug: 'ReactJS'},
+//   {title: "UML", category: "Diagram", url: "https://www.uml.org/", slug: 'UML'}
+// ]
+
+// this.getPortfolioItems = this.getPortfolioItems.bind(this);
+
+// this.getPortfolioItems();
