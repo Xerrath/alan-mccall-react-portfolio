@@ -2,3 +2,8 @@ html {
     margin: 0px;
     font-family: 'Roboto Mono', monospace;
 }
+
+.container {
+    display:grid;
+    grid-template-columns: 1fr;
+}
