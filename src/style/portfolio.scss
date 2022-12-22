@@ -28,15 +28,16 @@
             .subtitle {
                 transition: 1s ease-in-out;
                 color: transparent;
+                font-size: 1.2rem;
             }
 
             &:hover .subtitle {
-                color: $teal;
-                font-weight: 400;
+                color: black;
+                font-weight: 500;
             }
 
             .logo-wrapper img {
-                width: 50%;
+                width: 40%;
                 margin-bottom: 20px;
             }
         }
@@ -45,5 +46,5 @@
 
 .image-blur {
     transition: 1s;
-    filter: brightness(6%);
+    filter: blur(10px) grayscale(100%) invert(100%);
 }
