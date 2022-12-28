@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-
 import NavigationContainer from "./navigation/navigation-container";
 import Home from "./pages/home";
 import About from "./pages/about";
@@ -81,7 +79,11 @@ export default class App extends Component {
 
   authorizedPages() {
     return [
-      <Route key="portfolio-manager" path="/portfolio-manager" component={PortfolioManager} />
+      <Route
+        key="portfolio-manager"
+        path="/portfolio-manager"
+        component={PortfolioManager}
+      />
     ];
   }
 
@@ -112,15 +114,26 @@ export default class App extends Component {
               <Route path="/about-me" component={About} />
               <Route path="/contact" component={Contact} />
 
-              <Route path="/blog"
+              <Route
+                path="/blog"
                 render={props => (
                   <Blog {...props} loggedInStatus={this.state.loggedInStatus} />
                 )}
               />
 
-              <Route path="/b/:slug" component={BlogDetail} />
+              <Route
+                path="/b/:slug"
+                render={props => (
+                  <BlogDetail
+                    {...props}
+                    loggedInStatus={this.state.loggedInStatus}
+                  />
+                )}
+              />
 
-              {this.state.loggedInStatus === "LOGGED_IN" ? (this.authorizedPages()) : null}
+              {this.state.loggedInStatus === "LOGGED_IN"
+                ? this.authorizedPages()
+                : null}
               <Route
                 exact
                 path="/portfolio/:slug"
